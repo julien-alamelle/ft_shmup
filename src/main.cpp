@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/25 18:55:35 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/25 20:24:27 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@
 
 void get_input(std::vector<int> &input);
 int	 update(GameState &gs, std::vector<int> input);
+std::vector<Enemy *> EntityManager::_enemys;
+std::vector<Bullet *> EntityManager::_bullets;
+std::map<std::string, Entity *(*)(int, int)> EntityManager::_factory;
+void (*Entity::_EntityCreator)(std::string, int, int);
 
 int main(void)
 {
 	clock_t start;
 	std::vector<int> input;
-	GameState gs;
 
+	srand(time(0));
 	initscr();
 	newwin(LINES, COLS, 0, 0);
 	cbreak();
@@ -33,13 +37,14 @@ int main(void)
 	keypad(stdscr, TRUE);
 	curs_set(0);
 	start = clock();
+	GameState gs;
 	while (1)
 	{
 		while (clock() - start < CLOCKS_PER_SEC / FRAME_RATE)
 			;
 		start += CLOCKS_PER_SEC / FRAME_RATE;
-		clear();
 		get_input(input);
+		clear();
 		if (update(gs, input))
 			break;
 	}

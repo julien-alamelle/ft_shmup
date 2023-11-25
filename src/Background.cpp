@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/25 17:57:22 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/25 19:55:55 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void Background::update()
 
 Background::Background():ticks_since_last_obj(0)
 {
-
+	
 }
 
 Background::~Background()
