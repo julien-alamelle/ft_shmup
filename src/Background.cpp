@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/25 17:40:00 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/25 17:54:11 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void Background::add_object()
 	this->objects.push_back(ptr);
 	this->objects.back()->y = rand() % (COLS - this->objects.back()->image[0].length());
 	ptr->ticks_since_last = this->objects.front()->ticks_since_last;
-	int i = 0;
+	size_t i = 0;
 	while (i < this->objects.size())
 	{
 		this->objects[i]->ticks_since_last = 0;

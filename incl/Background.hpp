@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:28:19 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/25 17:36:03 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/25 17:55:42 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 #include <vector>
 
 class BackgroundObject {
-	private:
-		int x;
-		int ticks_before_update;
 	public:
-		int	ticks_since_last;
+		int x;
 		int y;
+		int ticks_before_update;
+		int	ticks_since_last;
 		std::vector<std::string> image;
 		BackgroundObject(int x, int y, int ticks_before_update);
 		~BackgroundObject();
