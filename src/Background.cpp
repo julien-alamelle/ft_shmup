@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/25 17:54:11 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/25 17:57:22 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void BackgroundObject::render_object()
 
 void Background::add_object()
 {
-	BackgroundObject *ptr = new BackgroundObject(0, 0, FRAME_RATE / 2);
+	BackgroundObject *ptr = new BackgroundObject(0, 0, FRAME_RATE / 20);
 	this->objects.push_back(ptr);
 	this->objects.back()->y = rand() % (COLS - this->objects.back()->image[0].length());
 	ptr->ticks_since_last = this->objects.front()->ticks_since_last;
@@ -77,7 +77,7 @@ int BackgroundObject::update()
 void Background::update()
 {
 	int i = 0;
-	if (this->objects.size() < 15 && ticks_since_last_obj > FRAME_RATE * 5)
+	if (this->objects.size() < 15 && ticks_since_last_obj > FRAME_RATE / 2)
 	{
 		this->add_object();
 		this->ticks_since_last_obj = 0;
