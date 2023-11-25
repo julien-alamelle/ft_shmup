@@ -11,11 +11,12 @@ Player&	Player::operator=(const Player &src) {
 	return (*this);
 }
 
-void Player::update() {
+bool Player::update() {
 	this->x += 2;
 	this->x %= LINES;
 	this->y += 1;
 	this->y %= COLS;
+	return true;
 }
 
 void Player::print() {

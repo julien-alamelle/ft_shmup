@@ -11,6 +11,6 @@ public:
 	virtual ~Player();
 	Player&	operator=(const Player &);
 
-	virtual void update();
+	virtual bool update();
 	virtual void print();
 };

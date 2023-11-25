@@ -1,6 +1,12 @@
 #include "EntityManager.hpp"
 
-EntityManager::EntityManager():_player(),_enemys(),_bullets(),_factory() {;}
+Entity *newEnemy(int x, int y) {
+	return new Enemy(x,y);
+}
+
+EntityManager::EntityManager():_player(),_enemys(),_bullets(),_factory() {
+	this->registerEntity("enemy", newEnemy);
+}
 EntityManager::~EntityManager() {
 	for (auto ite = this->_enemys.begin(); ite < this->_enemys.end(); ++ite)
 		delete *ite;
@@ -31,19 +37,28 @@ void EntityManager::assign(Entity *entity) {
 
 bool EntityManager::update() {
 	this->_player.update();
-	for (auto ite = this->_enemys.begin(); ite < this->_enemys.end(); ++ite)
-		(*ite)->update();
-	for (auto itb = this->_bullets.begin(); itb < this->_bullets.end(); ++itb)
-	{
-		(*itb)->update();
-		if (this->_player.collide(*itb))
-			return false;
-		size_t i=0;
-		while (i < this->_enemys.size()) {
-			if (this->_enemys[i]->collide(*itb))
-				this->_enemys.erase(this->_enemys.begin()+i);
-			else
-				++i;
+	size_t e = 0;
+	while (e < this->_enemys.size()) {
+		if (!this->_enemys[e]->update())
+			this->_enemys.erase(this->_enemys.begin() + e);
+		else
+			++e;
+	}
+	size_t b = 0;
+	while (b < this->_bullets.size()) {
+		if (!this->_bullets[b]->update())
+			this->_bullets.erase(this->_bullets.begin() + b);
+		else {
+			if (this->_player.collide(this->_bullets[b]))
+				return false;
+			e = 0;
+			while (e < this->_enemys.size()) {
+				if (this->_enemys[e]->collide(this->_bullets[b]))
+					this->_enemys.erase(this->_enemys.begin() + e);
+				else
+					++e;
+			}
+			++b;
 		}
 	}
 	return true;
