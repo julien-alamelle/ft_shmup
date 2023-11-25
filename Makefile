@@ -1,6 +1,6 @@
 #update on every project
 
-CFILES=main.cpp 
+CFILES=main.cpp Player.cpp Entity.cpp 
 BIN=ft_shmup
 
 #update to match c or cpp
