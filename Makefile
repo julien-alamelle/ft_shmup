@@ -1,13 +1,13 @@
 #update on every project
 
-CFILES=main.cpp Player.cpp Entity.cpp 
+CFILES=EntityManager.cpp main.cpp Bullet.cpp Player.cpp Enemy.cpp Entity.cpp 
 BIN=ft_shmup
 
 #update to match c or cpp
 
 CC=c++
 CEXT=.cpp
-CPPFLAGS=-std=c++98
+CPPFLAGS=-std=c++11
 
 #update if needed
 

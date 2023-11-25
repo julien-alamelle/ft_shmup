@@ -10,3 +10,11 @@ Entity&	Entity::operator=(const Entity &src) {
 	this->y = src.y;
 	return (*this);
 }
+
+bool Entity::collide(Entity *entity) {
+	if (this->x == entity->x && this->y == entity->y) {
+		delete this;
+		return true;
+	}
+	return false;
+}
