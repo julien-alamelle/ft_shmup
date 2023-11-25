@@ -22,3 +22,10 @@ bool Player::update() {
 void Player::print() {
 	mvaddch(x,y,'O');
 }
+
+bool Player::collide(Entity *entity) {	
+	if (this->x == entity->getx() && this->y == entity->gety()) {
+		return true;
+	}
+	return false;
+}

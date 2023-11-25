@@ -12,6 +12,13 @@ Entity&	Entity::operator=(const Entity &src) {
 	return (*this);
 }
 
+int Entity::getx() {return this->x;}
+int Entity::gety() {return this->y;}
+
+void Entity::setEntityCreator(void (*entityCreator)(std::string, int, int)) {
+	Entity::_EntityCreator = entityCreator;
+}
+
 bool Entity::collide(Entity *entity) {
 	if (this->x == entity->x && this->y == entity->y) {
 		delete this;

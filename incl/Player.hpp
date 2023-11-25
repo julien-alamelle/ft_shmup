@@ -13,4 +13,5 @@ public:
 
 	virtual bool update();
 	virtual void print();
+	virtual bool collide(Entity *);
 };

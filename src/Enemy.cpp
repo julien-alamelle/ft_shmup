@@ -14,11 +14,12 @@ Enemy&	Enemy::operator=(const Enemy &src) {
 }
 
 bool Enemy::update() {
-	//if (!rand()%5) 
 	if (rand()%30 == 0) ++(this->x);
 	int i = rand()%120;
 	if (i==1) ++(this->y);
 	if (i==2) --(this->y);
+	if (rand()%30 == 0) 
+		this->_EntityCreator("bulletDown", this->x+1, this->y);
 	if (this->x < LINES && this->y >= 0 && this->y < COLS)
 		return true;
 	delete this;
