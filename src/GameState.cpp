@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:25:40 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:49:21 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ bool GameState::update()
 			for (int i = 0; i < 0 + (std::sqrt(this->score) / 200); i++) {
 				this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)), 2);
 			}
-			for (int i = 0; i < 0 + (std::sqrt(this->score) / 5000); i++) {
+			for (int i = 0; i < 0 + (std::sqrt(this->score) / 300); i++) {
 				this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)), 2);
 			}
-			for (int i = 0; i < 0 + (std::sqrt(this->score) / 1000); i++) {
+			for (int i = 0; i < 0 + (std::sqrt(this->score) / 400); i++) {
 				this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1, 2);
 			}
 		}
@@ -68,7 +68,7 @@ bool GameState::update()
 void GameState::print_data()
 {
 	box(this->winData, ACS_VLINE, ACS_HLINE);
-	attron(A_BOLD);
+	wattron(this->winData, A_BOLD);
 	wmove(this->winData, 1, 1);
 	if (wprintw(this->winData, "score: %ld", this->score) == ERR)
 		ft_error(BAD_ALLOC);
@@ -76,15 +76,18 @@ void GameState::print_data()
 	if (wprintw(this->winData, "lifes: %d", this->entityManager.getPlayer()->getHP()) == ERR)
 		ft_error(BAD_ALLOC);
 	wmove(this->winData, 3, 1);
-	if (wprintw(this->winData, "time : %d", (int) ((clock() - this->startTime) / CLOCKS_PER_SEC)) == ERR)
+	if (wprintw(this->winData, "time:  %d", (int) ((clock() - this->startTime) / CLOCKS_PER_SEC)) == ERR)
 		ft_error(BAD_ALLOC);
-	attron(A_NORMAL);
+	wmove(this->winData, 4, 1);
+	if (wprintw(this->winData, "waves: %d", this->waves))
+		ft_error(BAD_ALLOC);
+	wattroff(this->winData, A_BOLD);
 }
 
 GameState::GameState():score(0),ticks(0),waves(0)
 {
 	this->startTime = clock();
-	this->winData = subwin(stdscr, 5, SIDE_GAP, 0, 0);
+	this->winData = subwin(stdscr, 6, SIDE_GAP, 0, 0);
 	this->winGame = subwin(stdscr, LINES, get_maxy(COLS), 0, SIDE_GAP);
 	GameState::setInstance(this);
 }
