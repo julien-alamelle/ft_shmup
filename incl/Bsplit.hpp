@@ -13,5 +13,4 @@ public:
 	Bsplit&	operator=(const Bsplit &);
 
 	bool update();
-	void print(WINDOW *win);
 };

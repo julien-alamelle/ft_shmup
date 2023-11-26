@@ -19,7 +19,7 @@ bool Bsplit::update() {
 		x += dx;
 		y += dy;
 	} else --t;
-	if (GameState::getInstance()->getTicks() % (FRAME_RATE / 10) == 0) {
+	if (GameState::getInstance()->getTicks() % (FRAME_RATE / 3) == 0) {
 		this->_EntityCreator("bulletRight", this->x, this->y, this->team);
 		this->_EntityCreator("bulletLeft", this->x, this->y, this->team);
 	}
@@ -27,8 +27,4 @@ bool Bsplit::update() {
 		return true;
 	delete this;
 	return false;
-}
-
-void Bsplit::print(WINDOW *win) {
-	mvwaddch(win, this->x, this->y, this->c);
 }
