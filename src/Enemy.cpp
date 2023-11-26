@@ -38,10 +38,8 @@ void Enemy::print(WINDOW *win) {
 bool Enemy::collide(Entity *entity) {
 	int x = this->x, y = this->y;
 	bool ret = this->Entity::collide(entity);
-	if (ret && rand()%1 == 0) {
-		this->_EntityCreator("powerUp", x-1, y, 0);
+	if (ret && rand()%20 == 0) {
 		this->_EntityCreator("powerUp", x, y, 0);
-		this->_EntityCreator("powerUp", x+1, y, 0);
 	}
 	return ret;
 }

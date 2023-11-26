@@ -30,7 +30,9 @@ bool Player::update() {
 		this->y = 1;
 	if (this->y < 1)
 		this->y = get_maxy(COLS) - 2;
-	if (GameState::getInstance()->getTicks() % (this->shotSpeed) == 0) {
+	if (std::find(this->_input->begin(), this->_input->end(), ' ') != this->_input->end() || (this->shotSpeed && (GameState::getInstance()->getTicks() & 4))) {
+		if (this->shotSpeed)
+			this->shotSpeed -= 1;
 		if (this->nbShot >= 7)
 			this->_EntityCreator("bsplitUp", this->x, this->y, this->team);
 		else {
@@ -73,8 +75,7 @@ bool Player::collidePowerUp(PowerUp *powerUp) {
 				this->nbShot += 1;
 				break;
 			default:
-				if (this->shotSpeed > 3)
-					this->shotSpeed -= 1;
+				this->shotSpeed += FRAME_RATE * AUTOFIRE_LENGTH;
 		}
 		return true;
 	}

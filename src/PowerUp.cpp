@@ -4,7 +4,7 @@
 
 PowerUp::PowerUp(int x, int y, int team):Entity(x,y,team) {
 	this->type = 0;
-	if (rand() % 2 == 0)
+	if (rand() % 10 == 0)
 		this->type = 1;
 }
 

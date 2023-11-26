@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:26:07 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:25:48 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 22:39:02 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <string>
 #define FRAME_RATE 20
+#define AUTOFIRE_LENGTH 2
 #define SIDE_GAP 35
 #define BAD_ALLOC "bad alloc"
 #define WAVE_REGEN 3
