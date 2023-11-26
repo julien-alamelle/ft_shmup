@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 14:41:57 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 16:50:15 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 #include <cstring>
 #include <ncurses.h>
 #include <string.h>
+#include "GameState.hpp"
 
-BackgroundObject::BackgroundObject(int x, int y, int ticks_before_update):x(x), y(y), ticks_before_update(ticks_before_update), ticks_since_last(0)
+static std::vector<std::string> img1;
+static std::vector<std::string> img2;
+static std::vector<std::string> img3;
+static std::vector<std::string> img4;
+
+BackgroundObject::BackgroundObject(int x, int y, int ticks_before_update, std::vector<std::string> &image):x(x), y(y), ticks_before_update(ticks_before_update),image(image)
 {
-	this->image.push_back("  _  ");
-	this->image.push_back(" /+\\ ");
-	this->image.push_back("|+++|");
-	this->image.push_back(" \\+/ ");
-	this->image.push_back("  -  ");
 	this->x -= this->image.size();
 }
 
 BackgroundObject::~BackgroundObject() {
-	this->image.clear();
 }
 
 void BackgroundObject::render_object(WINDOW *win)
@@ -46,44 +46,27 @@ void BackgroundObject::render_object(WINDOW *win)
 	}
 }
 
-void Background::add_object()
-{
-	BackgroundObject *ptr = new BackgroundObject(0, 0, FRAME_RATE / 20);
-	this->objects.push_back(ptr);
-	this->objects.back()->y = 1 + (rand() % (get_maxy(COLS) - this->objects.back()->image[0].length() - 1));
-	ptr->ticks_since_last = this->objects.front()->ticks_since_last;
-	size_t i = 0;
-	while (i < this->objects.size())
-	{
-		this->objects[i]->ticks_since_last = 0;
-		i++;
-	}
-}
-
 int BackgroundObject::update(WINDOW *win)
 {
 	this->render_object(win);
 	
-	if (this->ticks_since_last >= this->ticks_before_update)
-	{
+	if (GameState::getInstance()->getTicks() % this->ticks_before_update == 0)
 		this->x++;
-		this->ticks_since_last = 0;
-	}
-	else
-		this->ticks_since_last++;
 	return (this->x > LINES);
 }
 
-void Background::update(WINDOW *win)
+void BackgroundLayer::add_object()
+{
+	BackgroundObject *ptr = new BackgroundObject(0, 0, this->ticks_before_update, this->image);
+	this->objects.push_back(ptr);
+	this->objects.back()->y = 1 + (rand() % (get_maxy(COLS) - this->objects.back()->image[0].length() - 1));
+}
+
+void BackgroundLayer::update(WINDOW *win)
 {
 	int i = 0;
-	if (this->objects.size() < 15 && ticks_since_last_obj > FRAME_RATE / 2)
-	{
+	if ((GameState::getInstance()->getTicks() % (this->ticks_before_update * COLS / density)) == 0)
 		this->add_object();
-		this->ticks_since_last_obj = 0;
-	}
-	else 
-		this->ticks_since_last_obj++;
 	while (i < (int)this->objects.size())
 	{
 		if (this->objects[i]->update(win))
@@ -96,12 +79,9 @@ void Background::update(WINDOW *win)
 	}
 }
 
-Background::Background():ticks_since_last_obj(0)
-{
-	
-}
+BackgroundLayer::BackgroundLayer(int ticks_before_update, int density, std::vector<std::string> &image):ticks_before_update(ticks_before_update),density(density),image(image) {}
 
-Background::~Background()
+BackgroundLayer::~BackgroundLayer()
 {
 	while (this->objects.size() > 0)
 	{
@@ -109,4 +89,43 @@ Background::~Background()
 		this->objects.erase(this->objects.begin());
 	}
 	this->objects.clear();
+}
+
+Background::Background() {
+img1.push_back("  |  ");
+img1.push_back(" \\|/ ");
+img1.push_back("--X--");
+img1.push_back(" /|\\ ");
+img1.push_back("  |  ");
+
+img2.push_back("/--\\");
+img2.push_back("|++|");
+img2.push_back("\\--/");
+
+img3.push_back("    .---------.    ");
+img3.push_back("  ./...... /.\\ \\.  ");
+img3.push_back(" /   :   : \\ /   \\ ");
+img3.push_back("|.................|");
+img3.push_back("|_________________|");
+img3.push_back("|.................|");
+img3.push_back(" \\   :   :   :   / ");
+img3.push_back("  \\._........._./  ");
+img3.push_back("     --.___.--     ");
+
+img4.push_back(".");
+
+	this->layers.push_back(new BackgroundLayer(FRAME_RATE*3, COLS*3, img4));
+	this->layers.push_back(new BackgroundLayer(FRAME_RATE*1, 1, img3));
+	this->layers.push_back(new BackgroundLayer(FRAME_RATE/2, 10, img2));
+	this->layers.push_back(new BackgroundLayer(FRAME_RATE/10, 10, img1));
+}
+
+Background::~Background() {
+	for (auto l : this->layers)
+		delete l;
+}
+
+void Background::update(WINDOW *win) {
+	for (auto l : this->layers)
+		l->update(win);
 }
