@@ -25,5 +25,7 @@ bool ESmartSplit::update() {
 }
 
 void ESmartSplit::print(WINDOW *win) {
+	wattron(win, A_REVERSE);
 	mvwaddch(win, this->x, this->y, 'T');
+	wattroff(win, A_REVERSE);
 }
