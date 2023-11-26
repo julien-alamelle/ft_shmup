@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 14:27:19 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:55:04 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ bool GameState::update()
 	this->background.update(this->winGame);
 	if (this->entityManager.getEnemyNumber() == 0)
 	{
-		for (int i = 0; i < 4 + (std::sqrt(this->score) / 100); i++) {
+		for (int i = 0; i < 4 + (std::sqrt(this->score) / 50); i++) {
 			std::cerr << 4+(score % 100) << std::endl;
 			this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)));
 		}
-		for (int i = 0; i < 1 + (std::sqrt(this->score) / 350); i++) {
+		for (int i = 0; i < 1 + (std::sqrt(this->score) / 200); i++) {
 			this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)));
 		}
-		for (int i = 0; i < 1 + (std::sqrt(this->score) / 1000); i++) {
+		for (int i = 0; i < 1 + (std::sqrt(this->score) / 5000); i++) {
 			this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
 		}
 	}
