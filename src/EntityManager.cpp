@@ -1,6 +1,7 @@
 #include "EntityManager.hpp"
 #include "E3shot.hpp"
 #include "EMothership.hpp"
+#include "ft_shmup.hpp"
 
 Entity *newEnemy(int x, int y) {
 	return new Enemy(x,y);
@@ -12,16 +13,16 @@ Entity *newEMothership(int x, int y) {
 	return new EMothership(x,y);
 }
 Entity *newBulletDown(int x, int y) {
-	return new Bullet(x,y,1,0,3); 
+	return new Bullet(x,y,1,0, FRAME_RATE / 30); 
 }
 Entity *newBulletDR(int x, int y) {
-	return new Bullet(x,y,1,1,3); 
+	return new Bullet(x,y,1,1,FRAME_RATE / 30); 
 }
 Entity *newBulletDL(int x, int y) {
-	return new Bullet(x,y,1,-1,3); 
+	return new Bullet(x,y,1,-1,FRAME_RATE / 30); 
 }
 Entity *newBulletUp(int x, int y) {
-	return new Bullet(x,y,-1,0,3); 
+	return new Bullet(x,y,-1,0,FRAME_RATE / 30); 
 }
 
 EntityManager::EntityManager():_player() {
