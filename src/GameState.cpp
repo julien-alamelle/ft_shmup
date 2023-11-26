@@ -6,13 +6,15 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 12:51:36 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:23:52 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GameState.hpp"
 #include "ft_shmup.hpp"
+#include <cmath>
 #include <ctime>
+#include <iostream>
 
 GameState *GameState::instance;
 
@@ -21,12 +23,19 @@ bool GameState::update()
 	ticks++;
 	box(this->winGame, 0, 0);
 	this->background.update(this->winGame);
-	if (ticks % (FRAME_RATE * 3) == 0)
-		this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)));
-	if (ticks % (FRAME_RATE * 10) == 0)
-		this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)));
-	if (ticks % (FRAME_RATE * 30) == 0)
-		this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
+	if (this->entityManager.getEnemyNumber() == 0)
+	{
+		for (int i = 0; i < 4 + (std::sqrt(this->score) / 100); i++) {
+			std::cerr << 4+(score % 100) << std::endl;
+			this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)));
+		}
+		for (int i = 0; i < 1 + (std::sqrt(this->score) / 350); i++) {
+			this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)));
+		}
+		for (int i = 0; i < 1 + (std::sqrt(this->score) / 1000); i++) {
+			this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
+		}
+	}
 	this->entityManager.print(this->winGame);
 	int newscore = this->entityManager.update();
 	if (newscore == -1)

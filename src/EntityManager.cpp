@@ -126,3 +126,8 @@ Player *EntityManager::getPlayer()
 {
 	return &this->_player;
 }
+
+int EntityManager::getEnemyNumber()
+{
+	return this->_enemys.size();
+}

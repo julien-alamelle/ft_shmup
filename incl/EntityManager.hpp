@@ -26,4 +26,5 @@ public:
 	int update();
 	void print(WINDOW *win); 
 	Player *getPlayer();
+	int getEnemyNumber();
 };
