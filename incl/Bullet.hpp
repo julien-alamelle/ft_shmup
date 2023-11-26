@@ -3,7 +3,7 @@
 #include "Entity.hpp"
 
 class Bullet:public Entity {
-private:
+protected:
 	int dx;
 	int dy;
 	int tmax;

@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 16:46:05 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 17:32:56 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ bool GameState::update()
 		}
 		for (int i = 0; i < 0 + (std::sqrt(this->score) / 5000); i++) {
 			this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
+		}
+		for (int i = 0; i < 3 + (std::sqrt(this->score) / 1000); i++) {
+			this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1);
 		}
 	}
 	this->entityManager.print(this->winGame);
