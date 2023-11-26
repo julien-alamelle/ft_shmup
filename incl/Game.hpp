@@ -6,9 +6,11 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 19:34:56 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:21:28 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 23:13:58 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include <vector>
 #include "GameState.hpp"

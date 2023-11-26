@@ -3,10 +3,10 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <Entity.hpp>
-#include <Player.hpp>
-#include <Enemy.hpp>
-#include <Bullet.hpp>
+#include "Entity.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
+#include "Bullet.hpp"
 #include <ncurses.h>
 
 class EntityManager {
