@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 19:11:08 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 19:55:28 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ GameState::GameState():score(0),ticks(0),waves(0)
 
 GameState::~GameState()
 {
-
+	delwin(this->winGame);
+	delwin(this->winData);
 }
 
 void GameState::setInstance(GameState *gs)

@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 18:32:36 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:14:56 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@
 #include <algorithm>
 #include "GameState.hpp"
 #include "ft_shmup.hpp"
+#include "Game.hpp"
 
-void get_input(std::vector<int> &input);
-bool update(GameState *gs, std::vector<int> input);
 std::vector<Enemy *> EntityManager::_enemys;
 std::vector<Bullet *> EntityManager::_bullets;
 std::map<std::string, Entity *(*)(int, int, int)> EntityManager::_factory;
 void (*Entity::_EntityCreator)(std::string, int, int, int) = EntityManager::createEntity;
 const std::vector<int> *Entity::_input;
+int menu(std::vector<int> &input);
 
 int main(void)
 {
-	clock_t start;
 	std::vector<int> input;
 	Entity::setInput(&input);
 
@@ -50,54 +49,65 @@ int main(void)
 		ft_error("start_color fail");
 	if (init_pair(42, COLOR_RED, COLOR_BLACK) == ERR)
 		ft_error("init_pair fail");
+	if (init_pair(23, COLOR_WHITE, COLOR_BLUE) == ERR)
+		ft_error("init_pair fail");
 	if (init_pair(69, COLOR_GREEN, COLOR_BLACK) == ERR)
 		ft_error("init_pair fail");
-	start = clock();
-	GameState *gs;
-	try {
-		gs = new GameState();
-	} catch (std::bad_alloc) {
-		ft_error("bad alloc");
-	}
+	return (menu(input));
+}
+
+int menu(std::vector<int> &input){
+	clock_t start = clock();
+	int pos = 0;
+	long score = 0;
 	while (1)
 	{
+		clear();
 		while (clock() - start < CLOCKS_PER_SEC / FRAME_RATE)
 			;
 		start += CLOCKS_PER_SEC / FRAME_RATE;
 		get_input(input);
-		clear();
-		if (update(gs, input))
-			break;
+		if (std::find(input.begin(), input.end(), KEY_RESIZE) != input.end())
+			ft_error("no resize pt2");
+		if (std::find(input.begin(), input.end(), KEY_UP) != input.end())
+			pos--;
+		if (std::find(input.begin(), input.end(), KEY_DOWN) != input.end())
+			pos++;
+		if (std::find(input.begin(), input.end(), '\n') != input.end())
+		{
+			if (pos == 0)
+			{
+				long scoretmp = run_game(input);
+				if (scoretmp > score)
+					score = scoretmp;
+			}
+			if (pos == 1)
+			{
+				endwin();
+				return 0;
+			}
+		}
+		if (pos < 0)
+			pos = 0;
+		if (pos > 1)
+			pos = 1;
+		box(stdscr, 0, 0);
+		std::string s = "Play";
+		if (pos == 0)
+			wattron(stdscr, A_UNDERLINE);
+		wmove(stdscr, (LINES / 2) - 1, (COLS / 2) - (s.length() / 2));
+		wprintw(stdscr, "%s", s.c_str());
+		wattroff(stdscr, A_UNDERLINE);
+		s = "Exit";
+		if (pos == 1)
+			wattron(stdscr, A_UNDERLINE);
+		wmove(stdscr, (LINES / 2) + 1, (COLS / 2) - (s.length() / 2));
+		wprintw(stdscr, "%s", s.c_str());
+		wattroff(stdscr, A_UNDERLINE);
+		wmove(stdscr, (LINES / 2) + 3, (COLS / 2));
+			wprintw(stdscr, "highscore: %ld", score);
+		refresh();
 	}
-	endwin();
-	printf("game end ! score: %ld, time: %ld\n", gs->getScore(), (clock() - gs->getStartTime()) / CLOCKS_PER_SEC);
-	delete gs;
-	return 0;
-}
-
-void get_input(std::vector<int> &input)
-{
-	int ch;
-	input.clear();
-	ch = getch();
-	while(ch != ERR)
-	{
-		input.push_back(ch);
-		ch = getch();
-	}
-}
-
-bool update(GameState *gs, std::vector<int> input)
-{
-	if (std::find(input.begin(), input.end(), KEY_RESIZE) != input.end())
-		ft_error("resizing window is not allowed");
-	if (std::find(input.begin(), input.end(), 27) != input.end())
-		return (TRUE);
-	if (gs->update())
-		return (TRUE);
-	gs->print_data();
-	refresh();
-	return (FALSE);
 }
 
 void ft_error(std::string s){

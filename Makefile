@@ -1,6 +1,6 @@
 #update on every project
 
-CFILES=EntityManager.cpp main.cpp GameState.cpp Bullet.cpp Bsplit.cpp Player.cpp Background.cpp EMothership.cpp Enemy.cpp Utils.cpp Entity.cpp ESplit.cpp E3shot.cpp 
+CFILES=EMothership.cpp Background.cpp Bsplit.cpp EntityManager.cpp ESplit.cpp Bullet.cpp E3shot.cpp Player.cpp Entity.cpp GameState.cpp main.cpp Game.cpp Utils.cpp Enemy.cpp 
 BIN=ft_shmup
 
 #update to match c or cpp
