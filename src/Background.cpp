@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:10:48 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 22:35:40 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ BackgroundObject::~BackgroundObject() {
 void BackgroundObject::render_object(WINDOW *win)
 {
 	int i = 0;
+	wattron(win, A_DIM);
 	wmove(win, x, y);
 	while (i < (int)image.size())
 	{
@@ -45,6 +46,7 @@ void BackgroundObject::render_object(WINDOW *win)
 		i++;
 		wmove(win, x + i, y);
 	}
+	wattroff(win, A_DIM);
 }
 
 int BackgroundObject::update(WINDOW *win)
