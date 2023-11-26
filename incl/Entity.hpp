@@ -7,12 +7,13 @@ class Entity {
 protected:
 	int		x;
 	int		y;
+	int		hp;
 	static void (*_EntityCreator)(std::string, int, int);
 	static const std::vector<int> *_input;
 
 public:
 	Entity();
-	Entity(int x, int y);
+	Entity(int x, int y, int hp = 1);
 	Entity(const Entity &);
 	virtual ~Entity();
 	Entity&	operator=(const Entity &);

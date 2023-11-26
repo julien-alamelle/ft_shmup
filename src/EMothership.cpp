@@ -3,7 +3,7 @@
 #include "ft_shmup.hpp"
 
 EMothership::EMothership():Enemy() {;}
-EMothership::EMothership(int x, int y):Enemy(x,y,500) {;}
+EMothership::EMothership(int x, int y):Enemy(x,y,500,3) {;}
 EMothership::EMothership(const EMothership &src):Enemy(src) {;}
 EMothership::~EMothership() {;}
 

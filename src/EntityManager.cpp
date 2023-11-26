@@ -93,6 +93,7 @@ int EntityManager::update() {
 			if (EntityManager::_bullets[b]->getDir() >= 0 && this->_player.collide(EntityManager::_bullets[b]) && this->_player.hit())
 				return (-1);
 			e = 0;
+			int db = 1;
 			if (EntityManager::_bullets[b]->getDir() <= 0)
 			{
 				while (e < EntityManager::_enemys.size()) {
@@ -100,13 +101,16 @@ int EntityManager::update() {
 					if (EntityManager::_enemys[e]->collide(EntityManager::_bullets[b]))
 					{
 						EntityManager::_enemys.erase(EntityManager::_enemys.begin() + e);
+						delete EntityManager::_bullets[b];
+						EntityManager::_bullets.erase(EntityManager::_bullets.begin() + b);
 						bonus_score += new_score;
+						db = 0;
+						break;
 					}
-					else
-						++e;
+					++e;
 				}
 			}
-			++b;
+			b += db;
 		}
 	}
 	return bonus_score;
