@@ -37,14 +37,9 @@ bool Player::update() {
 }
 
 void Player::print(WINDOW *win) {
-	if (this->isImmune())
-	{
-		attron(A_BLINK);
-		mvwaddch(win, x,y,'X');
-	}
-	else
-		mvwaddch(win, x,y,'O');
-	attron(A_NORMAL);
+	if (this->isImmune() && GameState::getInstance()->getTicks() % FRAME_RATE < FRAME_RATE / 2)
+		return ;
+	mvwaddch(win, x,y,'O');
 }
 
 bool Player::collide(Entity *entity) {	

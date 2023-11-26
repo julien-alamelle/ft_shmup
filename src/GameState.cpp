@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 14:27:19 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:46:05 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,17 @@ GameState *GameState::instance;
 
 bool GameState::update()
 {
-	ticks++;
 	box(this->winGame, 0, 0);
 	this->background.update(this->winGame);
 	if (this->entityManager.getEnemyNumber() == 0)
 	{
-		for (int i = 0; i < 4 + (std::sqrt(this->score) / 100); i++) {
-			std::cerr << 4+(score % 100) << std::endl;
+		for (int i = 0; i < 4 + (std::sqrt(this->score) / 50); i++) {
 			this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)));
 		}
-		for (int i = 0; i < 1 + (std::sqrt(this->score) / 350); i++) {
+		for (int i = 0; i < 1 + (std::sqrt(this->score) / 200); i++) {
 			this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)));
 		}
-		for (int i = 0; i < 1 + (std::sqrt(this->score) / 1000); i++) {
+		for (int i = 0; i < 0 + (std::sqrt(this->score) / 5000); i++) {
 			this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
 		}
 	}
@@ -41,6 +39,7 @@ bool GameState::update()
 	if (newscore == -1)
 		return (TRUE);
 	this->score += newscore;
+	ticks++;
 	return (FALSE);
 }
 
@@ -49,11 +48,14 @@ void GameState::print_data()
 	box(this->winData, ACS_VLINE, ACS_HLINE);
 	attron(A_BOLD);
 	wmove(this->winData, 1, 1);
-	wprintw(this->winData, "score: %ld", this->score);
+	if (wprintw(this->winData, "score: %ld", this->score) == ERR)
+		ft_error(BAD_ALLOC);
 	wmove(this->winData, 2, 1);
-	wprintw(this->winData, "lifes: %d", this->entityManager.getPlayer()->getLives());
+	if (wprintw(this->winData, "lifes: %d", this->entityManager.getPlayer()->getLives()) == ERR)
+		ft_error(BAD_ALLOC);
 	wmove(this->winData, 3, 1);
-	wprintw(this->winData, "time : %d", (int) ((clock() - this->startTime) / CLOCKS_PER_SEC));
+	if (wprintw(this->winData, "time : %d", (int) ((clock() - this->startTime) / CLOCKS_PER_SEC)) == ERR)
+		ft_error(BAD_ALLOC);
 	attron(A_NORMAL);
 }
 
