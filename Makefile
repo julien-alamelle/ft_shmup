@@ -11,7 +11,7 @@ CPPFLAGS=-std=c++11
 
 #update if needed
 
-CFLAGS=-Wall -Wextra -Werror -g -MD -I $(INCLDIR)
+CFLAGS=-Wall -Wextra -Werror -MD -I $(INCLDIR)
 SRCDIR=src
 SUBDIR=/.  
 
@@ -44,10 +44,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%$(CEXT) Makefile | $(SUB_DIR)
 
 $(SUB_DIR):
 	$(MD) $@
-
-source:
-	sed "s#^SUBDIR=/.*#SUBDIR=/. $$(find src -type d | sed "s#^src##g" | tr "\n" " ")#g" Makefile -i
-	sed "s#^CFILES=.*#CFILES=$$(find src -type f -name "*$(CEXT)" | sed "s#^src/##g" | tr "\n" " ")#g" Makefile -i
 
 .PHONY: all clean fclean re
 
