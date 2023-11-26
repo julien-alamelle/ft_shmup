@@ -2,6 +2,8 @@
 #include "E3shot.hpp"
 #include "EMothership.hpp"
 #include "Bsplit.hpp"
+#include "BsmartSplit.hpp"
+#include "ESmartSplit.hpp"
 #include "ESplit.hpp"
 #include "PowerUp.hpp"
 #include "ft_shmup.hpp"
@@ -17,6 +19,9 @@ Entity *newEMothership(int x, int y, int team) {
 }
 Entity *newESplit(int x, int y, int team) {
 	return new ESplit(x,y,team);
+}
+Entity *newESmartSplit(int x, int y, int team) {
+	return new ESmartSplit(x,y,team);
 }
 Entity *newBulletDown(int x, int y, int team) {
 	return new Bullet(x,y,1,0, FRAME_RATE / 30,team);
@@ -48,6 +53,9 @@ Entity *newBSplit(int x, int y, int team) {
 Entity *newBSplitUp(int x, int y, int team) {
 	return new Bsplit(x,y,-1,0,FRAME_RATE / 30,team);
 }
+Entity *newBSmartSplit(int x, int y, int team) {
+	return new BsmartSplit(x,y,1,0,FRAME_RATE / 30,team);
+}
 Entity *newPowerUp(int x, int y, int team) {
 	return new PowerUp(x,y,team);
 }
@@ -57,6 +65,7 @@ EntityManager::EntityManager():_player() {
 	this->registerEntity("e3shot", newE3shot);
 	this->registerEntity("emothership", newEMothership);
 	this->registerEntity("esplit", newESplit);
+	this->registerEntity("esmartsplit", newESmartSplit);
 	this->registerEntity("bulletDown", newBulletDown);
 	this->registerEntity("bulletDR", newBulletDR);
 	this->registerEntity("bulletDL", newBulletDL);
@@ -67,6 +76,7 @@ EntityManager::EntityManager():_player() {
 	this->registerEntity("bulletLeft", newBulletLeft);
 	this->registerEntity("bsplit", newBSplit);
 	this->registerEntity("bsplitUp", newBSplitUp);
+	this->registerEntity("bsmartplit", newBSmartSplit);
 	this->registerEntity("powerUp", newPowerUp);
 }
 EntityManager::~EntityManager() {

@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:41 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:23:00 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 22:17:48 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ class GameState {
 		static GameState *getInstance();
 		long getTicks();
 		long getScore();
+		EntityManager *getEntityManager();
 		clock_t getStartTime();
 		void setMode(bool mode);
 		bool getMode();

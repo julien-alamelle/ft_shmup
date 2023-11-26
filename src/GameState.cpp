@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:49:21 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 22:34:32 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,20 @@ bool GameState::update()
 			}
 		}
 		else {
-			for (int i = 0; i < 4 + (std::sqrt(this->score) / 50); i++) {
+			for (int i = 0; i < 3 + (std::sqrt(this->score) / 50); i++) {
 				this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)), 2);
 			}
-			for (int i = 0; i < 0 + (std::sqrt(this->score) / 200); i++) {
+			for (int i = 0; i < 1 + (std::sqrt(this->score) / 100); i++) {
 				this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)), 2);
 			}
-			for (int i = 0; i < 0 + (std::sqrt(this->score) / 300); i++) {
+			for (int i = 0; i < 1 + (std::sqrt(this->score) / 150); i++) {
 				this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)), 2);
 			}
-			for (int i = 0; i < 0 + (std::sqrt(this->score) / 400); i++) {
+			for (int i = 0; i < 1 + (std::sqrt(this->score) / 200); i++) {
 				this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1, 2);
+			}
+			for (int i = 0; i < 0 + (std::sqrt(this->score) / 400); i++) {
+				this->entityManager.createEntity("esmartsplit", 0, rand() % (get_maxy(COLS) - 2) + 1, 2);
 			}
 		}
 	}
@@ -96,6 +99,7 @@ GameState::~GameState()
 {
 	delwin(this->winGame);
 	delwin(this->winData);
+	GameState::setInstance(NULL);
 }
 
 void GameState::setInstance(GameState *gs)
@@ -129,4 +133,9 @@ void GameState::setMode(bool mode) {
 
 bool GameState::getMode() {
 	return this->hard_mode;
+}
+
+EntityManager *GameState::getEntityManager()
+{
+	return &(this->entityManager);
 }
