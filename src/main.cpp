@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 12:16:22 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:20:20 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int main(void)
 	nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
 	curs_set(0);
+	start_color();
+	init_pair(42, COLOR_RED, COLOR_BLACK);
 	start = clock();
 	GameState gs;
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 12:29:27 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:51:36 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,20 @@ GameState *GameState::instance;
 
 bool GameState::update()
 {
+	ticks++;
 	box(this->winGame, 0, 0);
 	this->background.update(this->winGame);
 	if (ticks % (FRAME_RATE * 3) == 0)
 		this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)));
 	if (ticks % (FRAME_RATE * 10) == 0)
 		this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)));
+	if (ticks % (FRAME_RATE * 30) == 0)
+		this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
 	this->entityManager.print(this->winGame);
 	int newscore = this->entityManager.update();
 	if (newscore == -1)
 		return (TRUE);
 	this->score += newscore;
-	ticks++;
 	return (FALSE);
 }
 

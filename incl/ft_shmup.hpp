@@ -6,12 +6,12 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:26:07 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 10:01:01 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 13:34:38 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#define FRAME_RATE 60
+#define FRAME_RATE 20
 #define SIDE_GAP 35
 #define get_maxy(cols) (cols - (2 * SIDE_GAP))

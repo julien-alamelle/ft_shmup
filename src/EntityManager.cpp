@@ -1,11 +1,15 @@
 #include "EntityManager.hpp"
 #include "E3shot.hpp"
+#include "EMothership.hpp"
 
 Entity *newEnemy(int x, int y) {
 	return new Enemy(x,y);
 }
 Entity *newE3shot(int x, int y) {
 	return new E3shot(x,y);
+}
+Entity *newEMothership(int x, int y) {
+	return new EMothership(x,y);
 }
 Entity *newBulletDown(int x, int y) {
 	return new Bullet(x,y,1,0,3); 
@@ -23,6 +27,7 @@ Entity *newBulletUp(int x, int y) {
 EntityManager::EntityManager():_player() {
 	this->registerEntity("enemy", newEnemy);
 	this->registerEntity("e3shot", newE3shot);
+	this->registerEntity("emothership", newEMothership);
 	this->registerEntity("bulletDown", newBulletDown);
 	this->registerEntity("bulletDR", newBulletDR);
 	this->registerEntity("bulletDL", newBulletDL);
@@ -108,11 +113,13 @@ int EntityManager::update() {
 }
 
 void EntityManager::print(WINDOW *win) {
+	wattron(win, COLOR_PAIR(42));
 	for (auto itb = EntityManager::_bullets.begin(); itb < EntityManager::_bullets.end(); ++itb)
 		(*itb)->print(win);
-	this->_player.print(win);
 	for (auto ite = EntityManager::_enemys.begin(); ite < EntityManager::_enemys.end(); ++ite)
 		(*ite)->print(win);
+	wattroff(win, COLOR_PAIR(42));
+	this->_player.print(win);
 }
 
 Player *EntityManager::getPlayer()
