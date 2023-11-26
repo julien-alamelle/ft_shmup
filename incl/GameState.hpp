@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:41 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 19:01:11 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:23:00 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class GameState {
 		clock_t startTime;
 		EntityManager entityManager;
 		Background background;
+		bool hard_mode;
 		WINDOW *winData;
 		WINDOW *winGame;
 	public:
@@ -37,4 +38,6 @@ class GameState {
 		long getTicks();
 		long getScore();
 		clock_t getStartTime();
+		void setMode(bool mode);
+		bool getMode();
 };

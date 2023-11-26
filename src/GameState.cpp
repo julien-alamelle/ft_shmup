@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 19:55:28 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:25:40 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool GameState::update()
 		waves++;
 		if (waves % WAVE_REGEN == 0)
 			this->entityManager.getPlayer()->setHP(1 + this->entityManager.getPlayer()->getHP());
-		if (HARD_MODE) {
+		if (this->getMode()) {
 			for (int i = 0; i < 4 + ((this->score) % 50); i++) {
 				this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)), 2);
 			}
@@ -118,4 +118,12 @@ long GameState::getScore()
 clock_t GameState::getStartTime()
 {
 	return this->startTime;
+}
+
+void GameState::setMode(bool mode) {
+	this->hard_mode = mode;
+}
+
+bool GameState::getMode() {
+	return this->hard_mode;
 }

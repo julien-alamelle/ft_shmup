@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:14:56 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:28:26 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,18 @@ int menu(std::vector<int> &input){
 		{
 			if (pos == 0)
 			{
-				long scoretmp = run_game(input);
+				long scoretmp = run_game(input, FALSE);
 				if (scoretmp > score)
 					score = scoretmp;
 			}
 			if (pos == 1)
+			{
+				long scoretmp = run_game(input, TRUE);
+				if (scoretmp > score)
+					score = scoretmp;
+
+			}
+			if (pos == 2)
 			{
 				endwin();
 				return 0;
@@ -89,8 +96,8 @@ int menu(std::vector<int> &input){
 		}
 		if (pos < 0)
 			pos = 0;
-		if (pos > 1)
-			pos = 1;
+		if (pos > 2)
+			pos = 2;
 		box(stdscr, 0, 0);
 		std::string s = "Play";
 		if (pos == 0)
@@ -98,13 +105,21 @@ int menu(std::vector<int> &input){
 		wmove(stdscr, (LINES / 2) - 1, (COLS / 2) - (s.length() / 2));
 		wprintw(stdscr, "%s", s.c_str());
 		wattroff(stdscr, A_UNDERLINE);
-		s = "Exit";
+
+		s = "Hard mode";
 		if (pos == 1)
 			wattron(stdscr, A_UNDERLINE);
 		wmove(stdscr, (LINES / 2) + 1, (COLS / 2) - (s.length() / 2));
 		wprintw(stdscr, "%s", s.c_str());
 		wattroff(stdscr, A_UNDERLINE);
-		wmove(stdscr, (LINES / 2) + 3, (COLS / 2));
+
+		s = "Exit";
+		if (pos == 2)
+			wattron(stdscr, A_UNDERLINE);
+		wmove(stdscr, (LINES / 2) + 3, (COLS / 2) - (s.length() / 2));
+		wprintw(stdscr, "%s", s.c_str());
+		wattroff(stdscr, A_UNDERLINE);
+		wmove(stdscr, (LINES / 2) + 5, (COLS / 2) - 5);
 			wprintw(stdscr, "highscore: %ld", score);
 		refresh();
 	}
