@@ -24,8 +24,8 @@ bool Player::update() {
 		this->y += 1;
 	if (this->x > LINES - 2)
 		this->x = LINES - 2;
-	if (this->x < LINES - 20)
-		this->x = LINES - 20;
+	if (this->x < 1)
+		this->x = 1;
 	if (this->y >= get_maxy(COLS) - 1)
 		this->y = 1;
 	if (this->y < 1)

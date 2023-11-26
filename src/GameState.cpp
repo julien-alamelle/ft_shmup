@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 23:04:36 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 23:32:38 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void GameState::print_data()
 	if (wprintw(this->winData, "time:  %d", (int) ((clock() - this->startTime) / CLOCKS_PER_SEC)) == ERR)
 		ft_error(BAD_ALLOC);
 	wmove(this->winData, 4, 1);
-	if (wprintw(this->winData, "waves: %d", this->waves))
+	if (wprintw(this->winData, "waves: %d", this->waves) == ERR)
 		ft_error(BAD_ALLOC);
 	wattroff(this->winData, A_BOLD);
 }

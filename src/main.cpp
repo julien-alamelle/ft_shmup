@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:45:27 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:33:03 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,28 @@ int menu(std::vector<int> &input){
 		if (pos == 0)
 			wattron(stdscr, A_UNDERLINE);
 		wmove(stdscr, (LINES / 2) - 1, (COLS / 2) - (s.length() / 2));
-		wprintw(stdscr, "%s", s.c_str());
+		if (wprintw(stdscr, "%s", s.c_str()) == ERR)
+			ft_error(BAD_ALLOC);
 		wattroff(stdscr, A_UNDERLINE);
 
 		s = "Hard mode";
 		if (pos == 1)
 			wattron(stdscr, A_UNDERLINE);
 		wmove(stdscr, (LINES / 2) + 1, (COLS / 2) - (s.length() / 2));
-		wprintw(stdscr, "%s", s.c_str());
+		if (wprintw(stdscr, "%s", s.c_str()) == ERR)
+			ft_error(BAD_ALLOC);
 		wattroff(stdscr, A_UNDERLINE);
 
 		s = "Exit";
 		if (pos == 2)
 			wattron(stdscr, A_UNDERLINE);
 		wmove(stdscr, (LINES / 2) + 3, (COLS / 2) - (s.length() / 2));
-		wprintw(stdscr, "%s", s.c_str());
+		if (wprintw(stdscr, "%s", s.c_str()) == ERR)
+			ft_error(BAD_ALLOC);
 		wattroff(stdscr, A_UNDERLINE);
 		wmove(stdscr, (LINES / 2) + 5, (COLS / 2) - 5);
-			wprintw(stdscr, "highscore: %ld", score);
+		if (wprintw(stdscr, "highscore: %ld", score) == ERR)
+			ft_error(BAD_ALLOC);
 		refresh();
 	}
 }
