@@ -1,10 +1,20 @@
 #include "EntityManager.hpp"
+#include "E3shot.hpp"
 
 Entity *newEnemy(int x, int y) {
 	return new Enemy(x,y);
 }
+Entity *newE3shot(int x, int y) {
+	return new E3shot(x,y);
+}
 Entity *newBulletDown(int x, int y) {
 	return new Bullet(x,y,1,0,3); 
+}
+Entity *newBulletDR(int x, int y) {
+	return new Bullet(x,y,1,1,3); 
+}
+Entity *newBulletDL(int x, int y) {
+	return new Bullet(x,y,1,-1,3); 
 }
 Entity *newBulletUp(int x, int y) {
 	return new Bullet(x,y,-1,0,3); 
@@ -12,7 +22,10 @@ Entity *newBulletUp(int x, int y) {
 
 EntityManager::EntityManager():_player() {
 	this->registerEntity("enemy", newEnemy);
+	this->registerEntity("e3shot", newE3shot);
 	this->registerEntity("bulletDown", newBulletDown);
+	this->registerEntity("bulletDR", newBulletDR);
+	this->registerEntity("bulletDL", newBulletDL);
 	this->registerEntity("bulletUp", newBulletUp);
 }
 EntityManager::~EntityManager() {

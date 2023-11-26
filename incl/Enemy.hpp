@@ -4,10 +4,11 @@
 
 class Enemy:public Entity {
 private:
-	int	score = 50;
+	int	score;
 public:
 	Enemy();
 	Enemy(int x, int y);
+	Enemy(int x, int y, int score);
 	Enemy(const Enemy &);
 	virtual ~Enemy();
 	Enemy&	operator=(const Enemy &);

@@ -4,7 +4,8 @@
 #include "ft_shmup.hpp"
 
 Enemy::Enemy():Entity() {;}
-Enemy::Enemy(int x, int y):Entity(x,y) {;}
+Enemy::Enemy(int x, int y):Entity(x,y),score(50) {;}
+Enemy::Enemy(int x, int y, int score):Entity(x,y),score(score) {;}
 Enemy::Enemy(const Enemy &src):Entity(src) {;}
 Enemy::~Enemy() {;}
 
