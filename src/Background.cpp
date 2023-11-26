@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 16:50:15 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:33:46 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void BackgroundObject::render_object(WINDOW *win)
 	{
 		if (x + i < LINES && x + i >= 0)
 		{
-			wprintw(win, "%s", image[i].c_str());
+			if (wprintw(win, "%s", image[i].c_str()) == ERR)
+				ft_error("bad alloc");
 		}
 		i++;
 		wmove(win, x + i, y);
