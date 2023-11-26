@@ -2,7 +2,6 @@
 #include "GameState.hpp"
 #include <ncurses.h>
 #include <algorithm>
-#include "ft_shmup.hpp"
 
 Player::Player():Entity(LINES - 3, get_maxy(COLS) / 2, 1, 3),dmgtick(-(FRAME_RATE * 30)) {;}
 Player::Player(const Player &src):Entity(src) {;}
@@ -31,7 +30,7 @@ bool Player::update() {
 		this->y = 1;
 	if (this->y < 1)
 		this->y = get_maxy(COLS) - 2;
-	if (std::find(this->_input->begin(), this->_input->end(), ' ') != this->_input->end())
+	if (GameState::getInstance()->getTicks() % (this->shotSpeed) == 0)
 		this->_EntityCreator("bulletUp", this->x, this->y, this->team);
 	return true;
 }
@@ -44,6 +43,21 @@ void Player::print(WINDOW *win) {
 
 bool Player::collide(Entity *entity) {	
 	if (this->x == entity->getx() && this->y == entity->gety() && this->team != entity->getTeam()) {
+		return true;
+	}
+	return false;
+}
+
+bool Player::collidePowerUp(PowerUp *powerUp) {
+	if (this->x == powerUp->getx() && this->y == powerUp->gety()) {
+		switch (powerUp->getType()) {
+			case 1:
+				this->nbShot += 1;
+				break;
+			default:
+				if (this->shotSpeed > 1)
+					this->shotSpeed -= 1;
+		}
 		return true;
 	}
 	return false;
