@@ -30,8 +30,26 @@ bool Player::update() {
 		this->y = 1;
 	if (this->y < 1)
 		this->y = get_maxy(COLS) - 2;
-	if (GameState::getInstance()->getTicks() % (this->shotSpeed) == 0)
-		this->_EntityCreator("bulletUp", this->x, this->y, this->team);
+	if (GameState::getInstance()->getTicks() % (this->shotSpeed) == 0) {
+		if (this->nbShot >= 7)
+			this->_EntityCreator("bsplitUp", this->x, this->y, this->team);
+		else {
+			if (this->nbShot & 1)
+				this->_EntityCreator("bulletUp", this->x, this->y, this->team);
+			else {
+				this->_EntityCreator("bulletUp", this->x, this->y+1, this->team);
+				this->_EntityCreator("bulletUp", this->x, this->y-1, this->team);
+			}
+			if (this->nbShot > 2) {
+				this->_EntityCreator("bulletUR", this->x, this->y, this->team);
+				this->_EntityCreator("bulletUL", this->x, this->y, this->team);
+			}
+			if (this->nbShot > 4) {
+				this->_EntityCreator("bulletRight", this->x, this->y, this->team);
+				this->_EntityCreator("bulletLeft", this->x, this->y, this->team);
+			}
+		}
+	}
 	return true;
 }
 

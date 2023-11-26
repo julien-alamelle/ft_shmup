@@ -30,6 +30,12 @@ Entity *newBulletDL(int x, int y, int team) {
 Entity *newBulletUp(int x, int y, int team) {
 	return new Bullet(x,y,-1,0,FRAME_RATE / 30,team);
 }
+Entity *newBulletUR(int x, int y, int team) {
+	return new Bullet(x,y,-1,1,FRAME_RATE / 30,team);
+}
+Entity *newBulletUL(int x, int y, int team) {
+	return new Bullet(x,y,-1,-1,FRAME_RATE / 30,team);
+}
 Entity *newBulletRight(int x, int y, int team) {
 	return new Bullet(x,y,0,1,FRAME_RATE / 30,team);
 }
@@ -38,6 +44,9 @@ Entity *newBulletLeft(int x, int y, int team) {
 }
 Entity *newBSplit(int x, int y, int team) {
 	return new Bsplit(x,y,1,0,FRAME_RATE / 30,team);
+}
+Entity *newBSplitUp(int x, int y, int team) {
+	return new Bsplit(x,y,-1,0,FRAME_RATE / 30,team);
 }
 Entity *newPowerUp(int x, int y, int team) {
 	return new PowerUp(x,y,team);
@@ -52,9 +61,12 @@ EntityManager::EntityManager():_player() {
 	this->registerEntity("bulletDR", newBulletDR);
 	this->registerEntity("bulletDL", newBulletDL);
 	this->registerEntity("bulletUp", newBulletUp);
+	this->registerEntity("bulletUR", newBulletUR);
+	this->registerEntity("bulletUL", newBulletUL);
 	this->registerEntity("bulletRight", newBulletRight);
 	this->registerEntity("bulletLeft", newBulletLeft);
 	this->registerEntity("bsplit", newBSplit);
+	this->registerEntity("bsplitUp", newBSplitUp);
 	this->registerEntity("powerUp", newPowerUp);
 }
 EntityManager::~EntityManager() {
