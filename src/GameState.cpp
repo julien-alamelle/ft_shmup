@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 22:34:32 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 22:52:53 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ bool GameState::update()
 			}
 			for (int i = 0; i < 1 + ((this->score) % 1000); i++) {
 				this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1, 2);
+			}
+			for (int i = 0; i < 1 + ((this->score) % 1000); i++) {
+				this->entityManager.createEntity("esmartsplit", 0, rand() % (get_maxy(COLS) - 2) + 1, 2);
 			}
 		}
 		else {

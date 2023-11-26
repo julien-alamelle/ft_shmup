@@ -3,7 +3,7 @@
 #include <ncurses.h>
 #include <algorithm>
 
-Player::Player():Entity(LINES - 3, get_maxy(COLS) / 2, 1, 3),dmgtick(-(FRAME_RATE * 30)) {;}
+Player::Player():Entity(LINES - 3, get_maxy(COLS) / 2, 1, LIVES),dmgtick(-(FRAME_RATE * 30)) {;}
 Player::Player(const Player &src):Entity(src) {;}
 Player::~Player() {;}
 
