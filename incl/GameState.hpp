@@ -6,9 +6,11 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:41 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/25 20:26:39 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 09:58:06 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include "EntityManager.hpp"
 #include "Background.hpp"
@@ -16,15 +18,22 @@
 
 class GameState {
 	private:
-		int score;
-		int ticks;
+		static GameState *instance;
+		long score;
+		long ticks;
 		clock_t startTime;
 		EntityManager entityManager;
 		Background background;
-	public:
 		WINDOW *winData;
-		void update();
+		WINDOW *winGame;
+	public:
+		bool update();
 		void print_data();
 		GameState();
 		~GameState();
+		static void setInstance(GameState *gs);
+		static GameState *getInstance();
+		long getTicks();
+		long getScore();
+		clock_t getStartTime();
 };

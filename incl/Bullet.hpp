@@ -15,5 +15,6 @@ public:
 	Bullet&	operator=(const Bullet &);
 
 	bool update();
-	void print();
+	void print(WINDOW *win);
+	int getDir();
 };

@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/25 19:55:55 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 09:53:12 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ BackgroundObject::~BackgroundObject() {
 	this->image.clear();
 }
 
-void BackgroundObject::render_object()
+void BackgroundObject::render_object(WINDOW *win)
 {
 	int i = 0;
-	move(x, y);
+	wmove(win, x, y);
 	while (i < (int)image.size())
 	{
 		if (x + i < LINES && x + i >= 0)
 		{
-			printw("%s", image[i].c_str());
+			wprintw(win, "%s", image[i].c_str());
 		}
 		i++;
-		move(x + i, y);
+		wmove(win, x + i, y);
 	}
 }
 
@@ -50,7 +50,7 @@ void Background::add_object()
 {
 	BackgroundObject *ptr = new BackgroundObject(0, 0, FRAME_RATE / 20);
 	this->objects.push_back(ptr);
-	this->objects.back()->y = rand() % (COLS - this->objects.back()->image[0].length());
+	this->objects.back()->y = rand() % (get_maxy(COLS) - this->objects.back()->image[0].length());
 	ptr->ticks_since_last = this->objects.front()->ticks_since_last;
 	size_t i = 0;
 	while (i < this->objects.size())
@@ -60,9 +60,9 @@ void Background::add_object()
 	}
 }
 
-int BackgroundObject::update()
+int BackgroundObject::update(WINDOW *win)
 {
-	this->render_object();
+	this->render_object(win);
 	
 	if (this->ticks_since_last >= this->ticks_before_update)
 	{
@@ -74,7 +74,7 @@ int BackgroundObject::update()
 	return (this->x > LINES);
 }
 
-void Background::update()
+void Background::update(WINDOW *win)
 {
 	int i = 0;
 	if (this->objects.size() < 15 && ticks_since_last_obj > FRAME_RATE / 2)
@@ -86,7 +86,7 @@ void Background::update()
 		this->ticks_since_last_obj++;
 	while (i < (int)this->objects.size())
 	{
-		if (this->objects[i]->update())
+		if (this->objects[i]->update(win))
 		{
 			delete this->objects[i];
 			this->objects.erase(this->objects.begin() + i);

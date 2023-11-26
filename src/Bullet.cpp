@@ -1,4 +1,5 @@
 #include "Bullet.hpp"
+#include "ft_shmup.hpp"
 #include <ncurses.h>
 
 Bullet::Bullet():Entity() {;}
@@ -17,13 +18,17 @@ bool Bullet::update() {
 		t = 3;
 		x += d;
 	} else --t;
-	if (this->x >= 0 && this->x < LINES && this->y >= 0 && this->y < COLS)
+	if (this->x >= 0 && this->x < LINES && this->y > 0 && this->y < get_maxy(COLS) - 1)
 		return true;
 	delete this;
 	return false;
 }
 
-void Bullet::print() {
-	mvaddch(this->x, this->y, '|');
+void Bullet::print(WINDOW *win) {
+	mvwaddch(win, this->x, this->y, '|');
 }
 
+int Bullet::getDir()
+{
+	return this->d;
+}

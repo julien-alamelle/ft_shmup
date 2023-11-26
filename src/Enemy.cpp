@@ -1,6 +1,7 @@
 #include "Enemy.hpp"
 #include <ncurses.h>
 #include <cstdlib>
+#include "ft_shmup.hpp"
 
 Enemy::Enemy():Entity() {;}
 Enemy::Enemy(int x, int y):Entity(x,y) {;}
@@ -19,14 +20,21 @@ bool Enemy::update() {
 	if (i==1) ++(this->y);
 	if (i==2) --(this->y);
 	if (rand()%30 == 0) 
-		this->_EntityCreator("bulletDown", this->x+1, this->y);
-	if (this->x < LINES && this->y >= 0 && this->y < COLS)
+		this->_EntityCreator("bulletDown", this->x, this->y);
+	if (this->y < 1)
+		this->y = 1;
+	if (this->y > get_maxy(COLS) - 2)
+		this->y = get_maxy(COLS) - 2;
+	if (this->x < LINES)
 		return true;
 	delete this;
 	return false;
 }
 
-void Enemy::print() {
-	mvaddch(this->x, this->y, 'V');
+void Enemy::print(WINDOW *win) {
+	mvwaddch(win, this->x, this->y, 'V');
 }
 
+int	Enemy::getScore(){
+	return this->score;
+}

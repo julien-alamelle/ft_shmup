@@ -15,8 +15,8 @@ Entity&	Entity::operator=(const Entity &src) {
 int Entity::getx() {return this->x;}
 int Entity::gety() {return this->y;}
 
-void Entity::setEntityCreator(void (*entityCreator)(std::string, int, int)) {
-	Entity::_EntityCreator = entityCreator;
+void Entity::setInput(std::vector<int> *input) {
+	Entity::_input = input;
 }
 
 bool Entity::collide(Entity *entity) {
