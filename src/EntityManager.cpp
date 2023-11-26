@@ -57,6 +57,8 @@ EntityManager::~EntityManager() {
 		delete *ite;
 	for (auto itb = EntityManager::_bullets.begin(); itb < EntityManager::_bullets.end(); ++itb)
 		delete *itb;
+	EntityManager::_bullets.clear();
+	EntityManager::_enemys.clear();
 }
 
 void EntityManager::registerEntity(std::string key, Entity* (*value)(int , int, int)) {
