@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 19:32:25 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 21:03:24 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:24:53 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void get_input(std::vector<int> &input);
 bool update(GameState *gs, std::vector<int> input);
 
-int run_game(std::vector<int> &input) {
+int run_game(std::vector<int> &input, bool hard_mode) {
 	clock_t start = clock();
 	GameState *gs;
 	try {
@@ -27,6 +27,7 @@ int run_game(std::vector<int> &input) {
 	} catch (std::bad_alloc) {
 		ft_error("bad alloc");
 	}
+	gs->setMode(hard_mode);
 	while (1)
 	{
 		while (clock() - start < CLOCKS_PER_SEC / FRAME_RATE)
