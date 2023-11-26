@@ -4,7 +4,7 @@
 
 class Enemy:public Entity {
 private:
-
+	int	score = 50;
 public:
 	Enemy();
 	Enemy(int x, int y);
@@ -13,5 +13,6 @@ public:
 	Enemy&	operator=(const Enemy &);
 
 	virtual bool update();
-	virtual void print();
+	virtual void print(WINDOW *win);
+	int	getScore();
 };

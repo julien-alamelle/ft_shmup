@@ -1,6 +1,6 @@
 #update on every project
 
-CFILES=EntityManager.cpp main.cpp Bullet.cpp Player.cpp Background.cpp Enemy.cpp Entity.cpp 
+CFILES=GameState.cpp Bullet.cpp EntityManager.cpp Background.cpp Entity.cpp Player.cpp main.cpp Enemy.cpp 
 BIN=ft_shmup
 
 #update to match c or cpp
@@ -11,7 +11,7 @@ CPPFLAGS=-std=c++11
 
 #update if needed
 
-CFLAGS=-Wall -Wextra -Werror -MD -I $(INCLDIR)
+CFLAGS=-Wall -Wextra -Werror -g -MD -I $(INCLDIR)
 SRCDIR=src
 SUBDIR=/.  
 

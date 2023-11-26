@@ -12,11 +12,12 @@ private:
 
 public:
 	Bullet();
-	Bullet(int x, int y, int dx, int dy, tmax);
+	Bullet(int x, int y, int dx, int dy, int tmax);
 	Bullet(const Bullet &);
 	virtual ~Bullet();
 	Bullet&	operator=(const Bullet &);
 
 	bool update();
-	void print();
+	void print(WINDOW *win);
+	int getDir();
 };

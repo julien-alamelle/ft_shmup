@@ -4,7 +4,8 @@
 
 class Player:public Entity {
 private:
-
+	int lives;
+	long dmgtick;
 public:
 	Player();
 	Player(const Player &);
@@ -12,6 +13,9 @@ public:
 	Player&	operator=(const Player &);
 
 	virtual bool update();
-	virtual void print();
+	virtual void print(WINDOW *win);
 	virtual bool collide(Entity *);
+	bool isImmune();
+	bool hit();
+	int getLives();
 };

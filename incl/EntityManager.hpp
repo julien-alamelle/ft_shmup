@@ -7,6 +7,7 @@
 #include <Player.hpp>
 #include <Enemy.hpp>
 #include <Bullet.hpp>
+#include <ncurses.h>
 
 class EntityManager {
 private:
@@ -22,6 +23,7 @@ public:
 	void registerEntity(std::string key, Entity* (*value)(int , int ));
 	static void createEntity(std::string key, int x, int y);
 
-	bool update();
-	void print(); 
+	int update();
+	void print(WINDOW *win); 
+	Player *getPlayer();
 };
