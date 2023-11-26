@@ -6,10 +6,11 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 13:20:20 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:55:33 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include <ncurses.h>
 #include <ctime>
 #include <vector>
@@ -33,6 +34,12 @@ int main(void)
 
 	srand(time(0));
 	initscr();
+	if (LINES < 20 || COLS < (SIDE_GAP * 2) + 30)
+	{
+		endwin();
+		std::cerr << "Window too small" << std::endl;
+		return (1);
+	}
 	cbreak();
 	nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
