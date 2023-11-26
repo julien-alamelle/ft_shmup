@@ -4,12 +4,15 @@
 
 class Bullet:public Entity {
 private:
-	int d;
+	int dx;
+	int dy;
+	int tmax;
 	int t;
+	char c;
 
 public:
 	Bullet();
-	Bullet(int x, int y, int d);
+	Bullet(int x, int y, int dx, int dy, tmax);
 	Bullet(const Bullet &);
 	virtual ~Bullet();
 	Bullet&	operator=(const Bullet &);

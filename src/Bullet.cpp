@@ -2,7 +2,12 @@
 #include <ncurses.h>
 
 Bullet::Bullet():Entity() {;}
-Bullet::Bullet(int x, int y, int d):Entity(x,y),d(d),t(0) {;}
+Bullet::Bullet(int x, int y, int dx, int dy, int tmax):Entity(x,y),dx(dx),dy(dy),tmax(tmax),t(0) {
+	if (!dy) c == '|';
+	else if (!dx) c == '-';
+	else if (dx*dy > 0) c == '\\';
+	else c == '/';
+}
 Bullet::Bullet(const Bullet &src):Entity(src) {;}
 Bullet::~Bullet() {;}
 
@@ -14,8 +19,9 @@ Bullet&	Bullet::operator=(const Bullet &src) {
 
 bool Bullet::update() {
 	if (!t) {
-		t = 3;
-		x += d;
+		t = tmax;
+		x += dx;
+		y += dy;
 	} else --t;
 	if (this->x >= 0 && this->x < LINES && this->y >= 0 && this->y < COLS)
 		return true;
@@ -24,6 +30,6 @@ bool Bullet::update() {
 }
 
 void Bullet::print() {
-	mvaddch(this->x, this->y, '|');
+	mvaddch(this->x, this->y, this->c);
 }
 

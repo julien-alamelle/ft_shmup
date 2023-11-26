@@ -4,7 +4,10 @@ Entity *newEnemy(int x, int y) {
 	return new Enemy(x,y);
 }
 Entity *newBulletDown(int x, int y) {
-	return new Bullet(x,y,1); 
+	return new Bullet(x,y,1,0,3); 
+}
+Entity *newBulletUp(int x, int y) {
+	return new Bullet(x,y,-1,0,3); 
 }
 
 EntityManager::EntityManager():_player() {
