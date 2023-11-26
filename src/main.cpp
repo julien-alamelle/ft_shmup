@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 18:32:36 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:25:29 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void get_input(std::vector<int> &input);
 bool update(GameState *gs, std::vector<int> input);
 std::vector<Enemy *> EntityManager::_enemys;
 std::vector<Bullet *> EntityManager::_bullets;
+std::vector<PowerUp *> EntityManager::_powerUp;
 std::map<std::string, Entity *(*)(int, int, int)> EntityManager::_factory;
 void (*Entity::_EntityCreator)(std::string, int, int, int) = EntityManager::createEntity;
 const std::vector<int> *Entity::_input;

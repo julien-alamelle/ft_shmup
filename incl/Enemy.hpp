@@ -14,5 +14,6 @@ public:
 
 	virtual bool update();
 	virtual void print(WINDOW *win);
+	virtual bool collide(Entity *entity);
 	int	getScore();
 };

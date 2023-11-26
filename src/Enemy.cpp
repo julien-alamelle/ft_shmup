@@ -35,6 +35,14 @@ void Enemy::print(WINDOW *win) {
 	mvwaddch(win, this->x, this->y, 'V');
 }
 
+bool Enemy::collide(Entity *entity) {
+	int x = this->x, y = this->y;
+	bool ret = this->Entity::collide(entity);
+	if (ret)
+		this->_EntityCreator("powerUp", x, y, 0);
+	return ret;
+}
+
 int	Enemy::getScore(){
 	return this->score;
 }

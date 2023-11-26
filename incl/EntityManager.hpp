@@ -14,6 +14,7 @@ private:
 	Player		_player;
 	static std::vector<Enemy *>		_enemys;
 	static std::vector<Bullet *>		_bullets;
+	static std::vector<PowerUp *>		_powerUp;
 	static std::map<std::string, Entity* (*)(int, int, int)> _factory;
 	static void assign(Entity *entity);
 

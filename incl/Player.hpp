@@ -7,7 +7,7 @@
 class Player:public Entity {
 private:
 	long dmgtick;
-	int shotSpeed = FRAME_RATE;
+	int shotSpeed = FRAME_RATE/2;
 	int nbShot = 1;
 public:
 	Player();

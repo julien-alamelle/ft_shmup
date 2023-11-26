@@ -3,6 +3,7 @@
 #include "EMothership.hpp"
 #include "Bsplit.hpp"
 #include "ESplit.hpp"
+#include "PowerUp.hpp"
 #include "ft_shmup.hpp"
 
 Entity *newEnemy(int x, int y, int team) {
@@ -38,6 +39,9 @@ Entity *newBulletLeft(int x, int y, int team) {
 Entity *newBSplit(int x, int y, int team) {
 	return new Bsplit(x,y,1,0,FRAME_RATE / 30,team);
 }
+Entity *newPowerUp(int x, int y, int team) {
+	return new PowerUp(x,y,team);
+}
 
 EntityManager::EntityManager():_player() {
 	this->registerEntity("enemy", newEnemy);
@@ -51,14 +55,18 @@ EntityManager::EntityManager():_player() {
 	this->registerEntity("bulletRight", newBulletRight);
 	this->registerEntity("bulletLeft", newBulletLeft);
 	this->registerEntity("bsplit", newBSplit);
+	this->registerEntity("powerUp", newPowerUp);
 }
 EntityManager::~EntityManager() {
 	for (auto ite = EntityManager::_enemys.begin(); ite < EntityManager::_enemys.end(); ++ite)
 		delete *ite;
 	for (auto itb = EntityManager::_bullets.begin(); itb < EntityManager::_bullets.end(); ++itb)
 		delete *itb;
+	for (auto itb = EntityManager::_powerUp.begin(); itb < EntityManager::_powerUp.end(); ++itb)
+		delete *itb;
 	EntityManager::_bullets.clear();
 	EntityManager::_enemys.clear();
+	EntityManager::_powerUp.clear();
 }
 
 void EntityManager::registerEntity(std::string key, Entity* (*value)(int , int, int)) {
@@ -79,7 +87,15 @@ void EntityManager::assign(Entity *entity) {
 		return;
 	}
 	Bullet *res2 = dynamic_cast<Bullet *>(entity);
-	if (res2) EntityManager::_bullets.push_back(res2);
+	if (res2) {
+		EntityManager::_bullets.push_back(res2);
+		return;
+	}
+	PowerUp *res3 = dynamic_cast<PowerUp *>(entity);
+	if (res3) {
+		EntityManager::_powerUp.push_back(res3);
+		return;
+	}
 }
 
 int EntityManager::update() {
@@ -134,6 +150,18 @@ int EntityManager::update() {
 			b += db;
 		}
 	}
+	size_t p = 0;
+	while (p < EntityManager::_powerUp.size()) {
+		if (!EntityManager::_powerUp[p]->update()) {
+			EntityManager::_powerUp.erase(EntityManager::_powerUp.begin() + p);
+		} else {
+			if (this->_player.collidePowerUp(EntityManager::_powerUp[p])) {
+				delete EntityManager::_powerUp[p];
+				EntityManager::_powerUp.erase(EntityManager::_powerUp.begin() + p);
+			} else
+				++p;
+		}
+	}
 	return bonus_score;
 }
 
@@ -144,6 +172,10 @@ void EntityManager::print(WINDOW *win) {
 	for (auto ite = EntityManager::_enemys.begin(); ite < EntityManager::_enemys.end(); ++ite)
 		(*ite)->print(win);
 	wattroff(win, COLOR_PAIR(42));
+	wattron(win, COLOR_PAIR(23));
+	for (auto ite = EntityManager::_powerUp.begin(); ite < EntityManager::_powerUp.end(); ++ite)
+		(*ite)->print(win);
+	wattroff(win, COLOR_PAIR(23));
 	this->_player.print(win);
 }
 
