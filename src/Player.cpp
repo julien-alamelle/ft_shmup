@@ -55,7 +55,7 @@ bool Player::collidePowerUp(PowerUp *powerUp) {
 				this->nbShot += 1;
 				break;
 			default:
-				if (this->shotSpeed > 1)
+				if (this->shotSpeed > 3)
 					this->shotSpeed -= 1;
 		}
 		return true;

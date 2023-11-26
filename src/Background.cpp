@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:41:49 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 17:33:46 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:10:48 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ img4.push_back(".");
 Background::~Background() {
 	for (auto l : this->layers)
 		delete l;
+	img1.clear();
+	img2.clear();
+	img3.clear();
+	img4.clear();
 }
 
 void Background::update(WINDOW *win) {
