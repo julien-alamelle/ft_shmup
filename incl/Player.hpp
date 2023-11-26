@@ -16,5 +16,4 @@ public:
 	virtual bool collide(Entity *);
 	bool isImmune();
 	bool hit();
-	int getLives();
 };

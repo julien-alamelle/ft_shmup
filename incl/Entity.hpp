@@ -26,4 +26,6 @@ public:
 	virtual bool update() = 0;
 	virtual void print(WINDOW *win) = 0;
 	virtual bool collide(Entity *entity);
+	int getHP();
+	void setHP(int hp);
 };

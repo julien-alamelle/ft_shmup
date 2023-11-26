@@ -30,3 +30,11 @@ bool Entity::collide(Entity *entity) {
 	}
 	return false;
 }
+
+int Entity::getHP() {
+	return this->hp;
+}
+
+void Entity::setHP(int hp) {
+	this->hp = hp;
+}

@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 18:46:34 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:11:08 by ccouble          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ bool GameState::update()
 	this->background.update(this->winGame);
 	if (this->entityManager.getEnemyNumber() == 0)
 	{
+		waves++;
+		if (waves % WAVE_REGEN == 0)
+			this->entityManager.getPlayer()->setHP(1 + this->entityManager.getPlayer()->getHP());
 		if (HARD_MODE) {
 			for (int i = 0; i < 4 + ((this->score) % 50); i++) {
 				this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)), 2);
@@ -70,7 +73,7 @@ void GameState::print_data()
 	if (wprintw(this->winData, "score: %ld", this->score) == ERR)
 		ft_error(BAD_ALLOC);
 	wmove(this->winData, 2, 1);
-	if (wprintw(this->winData, "lifes: %d", this->entityManager.getPlayer()->getLives()) == ERR)
+	if (wprintw(this->winData, "lifes: %d", this->entityManager.getPlayer()->getHP()) == ERR)
 		ft_error(BAD_ALLOC);
 	wmove(this->winData, 3, 1);
 	if (wprintw(this->winData, "time : %d", (int) ((clock() - this->startTime) / CLOCKS_PER_SEC)) == ERR)
@@ -78,7 +81,7 @@ void GameState::print_data()
 	attron(A_NORMAL);
 }
 
-GameState::GameState():score(0),ticks(0)
+GameState::GameState():score(0),ticks(0),waves(0)
 {
 	this->startTime = clock();
 	this->winData = subwin(stdscr, 5, SIDE_GAP, 0, 0);

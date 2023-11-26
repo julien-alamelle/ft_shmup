@@ -64,8 +64,3 @@ bool Player::hit()
 	}
 	return false;
 }
-
-int Player::getLives()
-{
-	return this->hp;
-}
