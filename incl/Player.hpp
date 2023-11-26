@@ -4,7 +4,6 @@
 
 class Player:public Entity {
 private:
-	int lives;
 	long dmgtick;
 public:
 	Player();

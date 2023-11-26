@@ -5,38 +5,38 @@
 #include "ESplit.hpp"
 #include "ft_shmup.hpp"
 
-Entity *newEnemy(int x, int y) {
-	return new Enemy(x,y);
+Entity *newEnemy(int x, int y, int team) {
+	return new Enemy(x,y,team);
 }
-Entity *newE3shot(int x, int y) {
-	return new E3shot(x,y);
+Entity *newE3shot(int x, int y, int team) {
+	return new E3shot(x,y,team);
 }
-Entity *newEMothership(int x, int y) {
-	return new EMothership(x,y);
+Entity *newEMothership(int x, int y, int team) {
+	return new EMothership(x,y,team);
 }
-Entity *newESplit(int x, int y) {
-	return new ESplit(x,y); 
+Entity *newESplit(int x, int y, int team) {
+	return new ESplit(x,y,team);
 }
-Entity *newBulletDown(int x, int y) {
-	return new Bullet(x,y,1,0, FRAME_RATE / 30); 
+Entity *newBulletDown(int x, int y, int team) {
+	return new Bullet(x,y,1,0, FRAME_RATE / 30,team);
 }
-Entity *newBulletDR(int x, int y) {
-	return new Bullet(x,y,1,1,FRAME_RATE / 30); 
+Entity *newBulletDR(int x, int y, int team) {
+	return new Bullet(x,y,1,1,FRAME_RATE / 30,team);
 }
-Entity *newBulletDL(int x, int y) {
-	return new Bullet(x,y,1,-1,FRAME_RATE / 30); 
+Entity *newBulletDL(int x, int y, int team) {
+	return new Bullet(x,y,1,-1,FRAME_RATE / 30,team);
 }
-Entity *newBulletUp(int x, int y) {
-	return new Bullet(x,y,-1,0,FRAME_RATE / 30); 
+Entity *newBulletUp(int x, int y, int team) {
+	return new Bullet(x,y,-1,0,FRAME_RATE / 30,team);
 }
-Entity *newBulletRight(int x, int y) {
-	return new Bullet(x,y,0,1,FRAME_RATE / 30); 
+Entity *newBulletRight(int x, int y, int team) {
+	return new Bullet(x,y,0,1,FRAME_RATE / 30,team);
 }
-Entity *newBulletLeft(int x, int y) {
-	return new Bullet(x,y,0,-1,FRAME_RATE / 30); 
+Entity *newBulletLeft(int x, int y, int team) {
+	return new Bullet(x,y,0,-1,FRAME_RATE / 30,team);
 }
-Entity *newBSplit(int x, int y) {
-	return new Bsplit(x,y,1,0,FRAME_RATE / 30); 
+Entity *newBSplit(int x, int y, int team) {
+	return new Bsplit(x,y,1,0,FRAME_RATE / 30,team);
 }
 
 EntityManager::EntityManager():_player() {
@@ -59,14 +59,14 @@ EntityManager::~EntityManager() {
 		delete *itb;
 }
 
-void EntityManager::registerEntity(std::string key, Entity* (*value)(int , int)) {
+void EntityManager::registerEntity(std::string key, Entity* (*value)(int , int, int)) {
 	EntityManager::_factory[key] = value;
 }
 
-void EntityManager::createEntity(std::string key, int x, int y) {
+void EntityManager::createEntity(std::string key, int x, int y, int team) {
 	auto it = EntityManager::_factory.find(key);
 	if (it != EntityManager::_factory.end())
-		EntityManager::assign((it->second)(x, y));
+		EntityManager::assign((it->second)(x, y, team));
 }
 
 void EntityManager::assign(Entity *entity) {
@@ -136,9 +136,9 @@ int EntityManager::update() {
 }
 
 void EntityManager::print(WINDOW *win) {
-	wattron(win, COLOR_PAIR(42));
 	for (auto itb = EntityManager::_bullets.begin(); itb < EntityManager::_bullets.end(); ++itb)
 		(*itb)->print(win);
+	wattron(win, COLOR_PAIR(42));
 	for (auto ite = EntityManager::_enemys.begin(); ite < EntityManager::_enemys.end(); ++ite)
 		(*ite)->print(win);
 	wattroff(win, COLOR_PAIR(42));

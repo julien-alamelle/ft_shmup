@@ -3,7 +3,7 @@
 #include "ft_shmup.hpp"
 
 ESplit::ESplit():Enemy() {;}
-ESplit::ESplit(int x, int y):Enemy(x,y,300,2) {;}
+ESplit::ESplit(int x, int y, int team):Enemy(x,y,team,300,2) {;}
 ESplit::ESplit(const ESplit &src):Enemy(src) {;}
 ESplit::~ESplit() {;}
 
@@ -16,7 +16,7 @@ ESplit&	ESplit::operator=(const ESplit &src) {
 bool ESplit::update() {
 	if (rand()%FRAME_RATE == 0) ++(this->x);
 	if (rand()%FRAME_RATE == 0) 
-		this->_EntityCreator("bsplit", this->x, this->y);
+		this->_EntityCreator("bsplit", this->x, this->y, this->team);
 	if (this->x < LINES)
 		return true;
 	delete this;

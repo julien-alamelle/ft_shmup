@@ -7,7 +7,7 @@ private:
 
 public:
 	EMothership();
-	EMothership(int x, int y);
+	EMothership(int x, int y, int team);
 	EMothership(const EMothership &);
 	virtual ~EMothership();
 	EMothership&	operator=(const EMothership &);

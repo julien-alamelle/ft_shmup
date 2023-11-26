@@ -14,14 +14,14 @@ private:
 	Player		_player;
 	static std::vector<Enemy *>		_enemys;
 	static std::vector<Bullet *>		_bullets;
-	static std::map<std::string, Entity* (*)(int, int)> _factory;
+	static std::map<std::string, Entity* (*)(int, int, int)> _factory;
 	static void assign(Entity *entity);
 
 public:
 	EntityManager();
 	virtual ~EntityManager();
-	void registerEntity(std::string key, Entity* (*value)(int , int ));
-	static void createEntity(std::string key, int x, int y);
+	void registerEntity(std::string key, Entity* (*value)(int, int, int));
+	static void createEntity(std::string key, int x, int y, int team);
 
 	int update();
 	void print(WINDOW *win); 

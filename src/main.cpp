@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:35:21 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 16:26:11 by ccouble          ###   ########.fr       */
+/*   Updated: 2023/11/26 18:32:36 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void get_input(std::vector<int> &input);
 bool update(GameState *gs, std::vector<int> input);
 std::vector<Enemy *> EntityManager::_enemys;
 std::vector<Bullet *> EntityManager::_bullets;
-std::map<std::string, Entity *(*)(int, int)> EntityManager::_factory;
-void (*Entity::_EntityCreator)(std::string, int, int) = EntityManager::createEntity;
+std::map<std::string, Entity *(*)(int, int, int)> EntityManager::_factory;
+void (*Entity::_EntityCreator)(std::string, int, int, int) = EntityManager::createEntity;
 const std::vector<int> *Entity::_input;
 
 int main(void)
@@ -49,6 +49,8 @@ int main(void)
 	if (start_color() == ERR)
 		ft_error("start_color fail");
 	if (init_pair(42, COLOR_RED, COLOR_BLACK) == ERR)
+		ft_error("init_pair fail");
+	if (init_pair(69, COLOR_GREEN, COLOR_BLACK) == ERR)
 		ft_error("init_pair fail");
 	start = clock();
 	GameState *gs;

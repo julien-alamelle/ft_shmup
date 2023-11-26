@@ -3,7 +3,7 @@
 #include "ft_shmup.hpp"
 
 E3shot::E3shot():Enemy() {;}
-E3shot::E3shot(int x, int y):Enemy(x,y,150) {;}
+E3shot::E3shot(int x, int y, int team):Enemy(x,y,team,150) {;}
 E3shot::E3shot(const E3shot &src):Enemy(src) {;}
 E3shot::~E3shot() {;}
 
@@ -19,9 +19,9 @@ bool E3shot::update() {
 	if (i==1) ++(this->y);
 	if (i==2) --(this->y);
 	if (rand()%30 == 0) { 
-		this->_EntityCreator("bulletDown", this->x, this->y);
-		this->_EntityCreator("bulletDR", this->x, this->y);
-		this->_EntityCreator("bulletDL", this->x, this->y);
+		this->_EntityCreator("bulletDown", this->x, this->y, this->team);
+		this->_EntityCreator("bulletDR", this->x, this->y, this->team);
+		this->_EntityCreator("bulletDL", this->x, this->y, this->team);
 	}
 	if (this->y < 1)
 		this->y = 1;

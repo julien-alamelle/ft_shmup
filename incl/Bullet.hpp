@@ -12,7 +12,7 @@ protected:
 
 public:
 	Bullet();
-	Bullet(int x, int y, int dx, int dy, int tmax);
+	Bullet(int x, int y, int dx, int dy, int tmax, int team);
 	Bullet(const Bullet &);
 	virtual ~Bullet();
 	Bullet&	operator=(const Bullet &);

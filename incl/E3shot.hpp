@@ -7,7 +7,7 @@ private:
 
 public:
 	E3shot();
-	E3shot(int x, int y);
+	E3shot(int x, int y, int team);
 	E3shot(const E3shot &);
 	virtual ~E3shot();
 	E3shot&	operator=(const E3shot &);

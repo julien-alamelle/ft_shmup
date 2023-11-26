@@ -4,7 +4,7 @@
 #include "ft_shmup.hpp"
 
 Enemy::Enemy():Entity() {;}
-Enemy::Enemy(int x, int y, int score, int hp):Entity(x,y,hp),score(score) {;}
+Enemy::Enemy(int x, int y, int team, int score, int hp):Entity(x,y,team,hp),score(score) {;}
 Enemy::Enemy(const Enemy &src):Entity(src) {;}
 Enemy::~Enemy() {;}
 
@@ -20,7 +20,7 @@ bool Enemy::update() {
 	if (i==1) ++(this->y);
 	if (i==2) --(this->y);
 	if (rand()%30 == 0) 
-		this->_EntityCreator("bulletDown", this->x, this->y);
+		this->_EntityCreator("bulletDown", this->x, this->y, this->team);
 	if (this->y < 1)
 		this->y = 1;
 	if (this->y > get_maxy(COLS) - 2)

@@ -3,7 +3,7 @@
 #include <ncurses.h>
 
 Bullet::Bullet():Entity() {;}
-Bullet::Bullet(int x, int y, int dx, int dy, int tmax):Entity(x,y),dx(dx),dy(dy),tmax(tmax),t(0) {
+Bullet::Bullet(int x, int y, int dx, int dy, int tmax, int team):Entity(x,y,team),dx(dx),dy(dy),tmax(tmax),t(0) {
 	if (!dy) c = '|';
 	else if (!dx) c = '-';
 	else if (dx*dy > 0) c = '\\';
@@ -31,7 +31,15 @@ bool Bullet::update() {
 }
 
 void Bullet::print(WINDOW *win) {
+	if (this->team == 1)
+		wattron(win, COLOR_PAIR(69));
+	else
+		wattron(win, COLOR_PAIR(42));
 	mvwaddch(win, this->x, this->y, this->c);
+	if (this->team == 1)
+		wattroff(win, COLOR_PAIR(69));
+	else
+		wattroff(win, COLOR_PAIR(42));
 }
 
 int Bullet::getDir()

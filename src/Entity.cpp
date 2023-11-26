@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
 Entity::Entity():x(0),y(0) {;}
-Entity::Entity(int x, int y, int hp):x(x),y(y),hp(hp) {;}
+Entity::Entity(int x, int y, int team, int hp):x(x),y(y),hp(hp),team(team) {;}
 Entity::Entity(const Entity &src):x(src.x),y(src.y) {;}
 Entity::~Entity() {;}
 
@@ -14,13 +14,14 @@ Entity&	Entity::operator=(const Entity &src) {
 
 int Entity::getx() {return this->x;}
 int Entity::gety() {return this->y;}
+int Entity::getTeam() {return this->team;}
 
 void Entity::setInput(std::vector<int> *input) {
 	Entity::_input = input;
 }
 
 bool Entity::collide(Entity *entity) {
-	if (this->x == entity->x && this->y == entity->y) {
+	if (this->x == entity->x && this->y == entity->y && this->team != entity->team) {
 		this->hp -= 1;
 		if (this->hp == 0) {
 			delete this;

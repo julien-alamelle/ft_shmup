@@ -7,7 +7,7 @@ private:
 
 public:
 	ESplit();
-	ESplit(int x, int y);
+	ESplit(int x, int y, int team);
 	ESplit(const ESplit &);
 	virtual ~ESplit();
 	ESplit&	operator=(const ESplit &);

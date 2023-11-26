@@ -3,7 +3,7 @@
 #include "ft_shmup.hpp"
 
 EMothership::EMothership():Enemy() {;}
-EMothership::EMothership(int x, int y):Enemy(x,y,500,3) {;}
+EMothership::EMothership(int x, int y, int team):Enemy(x,y,team,500,3) {;}
 EMothership::EMothership(const EMothership &src):Enemy(src) {;}
 EMothership::~EMothership() {;}
 
@@ -16,9 +16,9 @@ EMothership&	EMothership::operator=(const EMothership &src) {
 bool EMothership::update() {
 	if (rand()%600 == 0) ++(this->x);
 	if (rand()%180 == 0) 
-		this->_EntityCreator("enemy", this->x, this->y);
+		this->_EntityCreator("enemy", this->x, this->y, this->team);
 	if (rand()%600 == 0) 
-		this->_EntityCreator("e3shot", this->x, this->y);
+		this->_EntityCreator("e3shot", this->x, this->y, this->team);
 	if (this->y < 1)
 		this->y = 1;
 	if (this->y > get_maxy(COLS) - 2)

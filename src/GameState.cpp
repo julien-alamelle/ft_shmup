@@ -6,7 +6,7 @@
 /*   By: ccouble <ccouble@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 18:00:30 by ccouble           #+#    #+#             */
-/*   Updated: 2023/11/26 17:49:12 by jalamell         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:46:34 by jalamell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,30 @@ bool GameState::update()
 	{
 		if (HARD_MODE) {
 			for (int i = 0; i < 4 + ((this->score) % 50); i++) {
-				this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)));
+				this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)), 2);
 			}
 			for (int i = 0; i < 1 + ((this->score) % 200); i++) {
-				this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)));
+				this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)), 2);
 			}
 			for (int i = 0; i < 0 + ((this->score) % 5000); i++) {
-				this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
+				this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)), 2);
 			}
 			for (int i = 0; i < 1 + ((this->score) % 1000); i++) {
-				this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1);
+				this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1, 2);
 			}
 		}
 		else {
 			for (int i = 0; i < 4 + (std::sqrt(this->score) / 50); i++) {
-				this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)));
+				this->entityManager.createEntity("enemy", 0, rand() % (get_maxy(COLS)), 2);
 			}
-			for (int i = 0; i < 1 + (std::sqrt(this->score) / 200); i++) {
-				this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)));
+			for (int i = 0; i < 0 + (std::sqrt(this->score) / 200); i++) {
+				this->entityManager.createEntity("e3shot", 0, rand() % (get_maxy(COLS)), 2);
 			}
 			for (int i = 0; i < 0 + (std::sqrt(this->score) / 5000); i++) {
-				this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)));
+				this->entityManager.createEntity("emothership", 0, rand() % (get_maxy(COLS)), 2);
 			}
 			for (int i = 0; i < 0 + (std::sqrt(this->score) / 1000); i++) {
-				this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1);
+				this->entityManager.createEntity("esplit", 0, rand() % (get_maxy(COLS) - 2) + 1, 2);
 			}
 		}
 	}
