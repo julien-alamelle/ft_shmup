@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
 Entity::Entity():x(0),y(0) {;}
-Entity::Entity(int x, int y):x(x),y(y) {;}
+Entity::Entity(int x, int y, int hp):x(x),y(y),hp(hp) {;}
 Entity::Entity(const Entity &src):x(src.x),y(src.y) {;}
 Entity::~Entity() {;}
 
@@ -21,8 +21,11 @@ void Entity::setInput(std::vector<int> *input) {
 
 bool Entity::collide(Entity *entity) {
 	if (this->x == entity->x && this->y == entity->y) {
-		delete this;
-		return true;
+		this->hp -= 1;
+		if (this->hp == 0) {
+			delete this;
+			return true;
+		}
 	}
 	return false;
 }
